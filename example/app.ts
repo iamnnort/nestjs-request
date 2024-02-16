@@ -6,9 +6,10 @@ import { DemoCommand } from './command';
 @Module({
   imports: [
     LoggerModule,
-    RequestModule.forRoot({
-      name: 'JSON Placeholder',
+    RequestModule.forFeature({
+      name: 'Demo Api',
       baseUrl: 'https://jsonplaceholder.typicode.com',
+      url: '/todos',
       logger: true,
     }),
   ],

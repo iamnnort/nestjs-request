@@ -43,7 +43,7 @@ export class RequestBuilder {
       return this;
     }
 
-    if (this.requestConfig.xml) {
+    if (this.baseConfig.xml) {
       this.config = {
         ...this.config,
         headers: {
@@ -93,11 +93,13 @@ export class RequestBuilder {
         return urlPart?.replace(/(^(https?:\/\/|\/))/, '');
       });
 
-    const baseUrl = [`${protocol}:/`, ...actualUrlParts].join('/');
+    const baseUrl = `${protocol}://${actualUrlParts[0]}`;
+    const url = `/${actualUrlParts.slice(1).join('/')}`;
 
     this.config = {
       ...this.config,
-      url: baseUrl,
+      baseURL: baseUrl,
+      url,
     };
 
     return this;
@@ -120,10 +122,7 @@ export class RequestBuilder {
     if (this.requestConfig.urlencoded) {
       this.config = {
         ...this.config,
-        data: stringify({
-          ...this.baseConfig.data,
-          ...this.requestConfig.data,
-        }),
+        data: stringify(this.requestConfig.data),
       };
 
       return this;
@@ -131,10 +130,7 @@ export class RequestBuilder {
 
     this.config = {
       ...this.config,
-      data: {
-        ...this.baseConfig.data,
-        ...this.requestConfig.data,
-      },
+      data: this.requestConfig.data,
     };
 
     return this;
@@ -143,10 +139,7 @@ export class RequestBuilder {
   makeParams() {
     this.config = {
       ...this.config,
-      params: {
-        ...this.baseConfig.params,
-        ...this.requestConfig.params,
-      },
+      params: this.requestConfig.params,
     };
 
     return this;

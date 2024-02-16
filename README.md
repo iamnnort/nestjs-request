@@ -17,15 +17,14 @@ import { HttpMethods, RequestService } from '@iamnnort/nestjs-request';
 
 @Command({ name: 'demo' })
 export class DemoCommand extends CommandRunner {
-  constructor(private requestService: RequestService) {
+  constructor(private requestService: RequestService<{ id: number }>) {
     super();
   }
 
   async run() {
-    await this.requestService.request({
-      method: HttpMethods.GET,
-      url: '/todos/1',
-    });
+    const todo = await this.requestService.get(1);
+
+    console.log('Result:', todo);
   }
 }
 
@@ -38,9 +37,10 @@ import { DemoCommand } from './command';
 @Module({
   imports: [
     LoggerModule,
-    RequestModule.forRoot({
-      name: 'JSON Placeholder',
+    RequestModule.forFeature({
+      name: 'Demo Api',
       baseUrl: 'https://jsonplaceholder.typicode.com',
+      url: '/todos',
       logger: true,
     }),
   ],
@@ -63,8 +63,9 @@ bootstrap();
 ## Output
 
 ```bash
-[JSON Placeholder] [Request] GET https://jsonplaceholder.typicode.com/todos/1
-[JSON Placeholder] [Response] GET https://jsonplaceholder.typicode.com/todos/1 200 OK {"userId":1,"id":1,"title":"delectus aut autem","completed":false}
+[Demo Api] [Request] GET /todos/1
+[Demo Api] [Response] GET /todos/1 200 OK {"userId":1,"id":1,"title":"delectus aut autem","completed":false}
+Result: { userId: 1, id: 1, title: 'delectus aut autem', completed: false }
 ```
 
 ## License

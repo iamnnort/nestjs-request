@@ -1,16 +1,15 @@
-import { HttpMethods, RequestService } from '../src';
+import { RequestService } from '../src';
 import { Command, CommandRunner } from 'nest-commander';
 
 @Command({ name: 'demo' })
 export class DemoCommand extends CommandRunner {
-  constructor(private requestService: RequestService) {
+  constructor(private requestService: RequestService<{ id: number }>) {
     super();
   }
 
   async run() {
-    await this.requestService.request({
-      method: HttpMethods.GET,
-      url: '/todos/1',
-    });
+    const todo = await this.requestService.get(1);
+
+    console.log('Result:', todo);
   }
 }

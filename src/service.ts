@@ -5,10 +5,16 @@ import { catchError, lastValueFrom, map } from 'rxjs';
 import { RequestBuilder } from './builder';
 import { MODULE_OPTIONS_TOKEN } from './module-definition';
 import { LoggerService } from '@iamnnort/nestjs-logger';
-import { BaseRequestConfig, RequestConfig } from '.';
+import { BaseRequestConfig, HttpMethods, RequestConfig, RequestConfigParams } from './types';
 
 @Injectable()
-export class RequestService {
+export class RequestService<
+  Entity extends Record<string, any> = any,
+  SearchParams extends RequestConfigParams = any,
+  SearchResponse extends Record<string, any> = any,
+  CreateParams extends RequestConfigParams = any,
+  UpdateParams extends RequestConfigParams = any,
+> {
   constructor(
     @Inject(MODULE_OPTIONS_TOKEN)
     public config: BaseRequestConfig,
@@ -18,7 +24,7 @@ export class RequestService {
     this.loggerService.setContext(config.name);
   }
 
-  request<T>(config: RequestConfig) {
+  common<T>(config: RequestConfig) {
     const requestBuilder = new RequestBuilder({
       baseConfig: this.config,
       requestConfig: config,
@@ -47,7 +53,7 @@ export class RequestService {
               this.loggerService.logResponse(response as any);
             }
 
-            if (this.config.xml || config.xml) {
+            if (this.config.xml) {
               return xml2json(response.data) as T;
             }
 
@@ -68,5 +74,64 @@ export class RequestService {
           }),
         ),
     );
+  }
+
+  search(config: SearchParams = {} as SearchParams) {
+    return this.common<SearchResponse>({
+      ...config,
+      method: HttpMethods.GET,
+    });
+  }
+
+  get(id: number | string, config: SearchParams = {} as SearchParams) {
+    return this.common<Entity>({
+      ...config,
+      method: HttpMethods.GET,
+      url: id,
+    });
+  }
+
+  create(config: CreateParams) {
+    return this.common<Entity>({
+      ...config,
+      method: HttpMethods.POST,
+    });
+  }
+
+  bulkCreate(config: CreateParams) {
+    return this.common<Entity[]>({
+      ...config,
+      method: HttpMethods.POST,
+      url: '/bulk',
+      data: {
+        bulk: config.data,
+      },
+    });
+  }
+
+  update(config: UpdateParams) {
+    return this.common<Entity>({
+      ...config,
+      method: HttpMethods.PUT,
+    });
+  }
+
+  bulkUpdate(config: UpdateParams) {
+    return this.common<Entity[]>({
+      ...config,
+      method: HttpMethods.PUT,
+      url: '/bulk',
+      data: {
+        bulk: config.data,
+      },
+    });
+  }
+
+  remove(id: number | string, config: SearchParams = {} as SearchParams) {
+    return this.common<void>({
+      ...config,
+      method: HttpMethods.DELETE,
+      url: id,
+    });
   }
 }

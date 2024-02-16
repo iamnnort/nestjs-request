@@ -1,20 +1,26 @@
 import { AxiosRequestConfig } from 'axios';
 
-export type RequestConfig = Omit<AxiosRequestConfig, 'baseURL'> & {
+export type RequestConfigParams = Pick<AxiosRequestConfig, 'params' | 'data'>;
+
+export type RequestConfig = Omit<AxiosRequestConfig, 'baseURL' | 'url'> & {
   baseUrl?: string;
-  baseUrlMap?: Record<string, string>;
-  baseUrlName?: string;
+  url?: number | string;
   urlParts?: (number | string)[];
   urlencoded?: boolean;
   multipart?: boolean;
-  xml?: boolean;
 };
 
-export type BaseRequestConfig = RequestConfig & {
+export type BaseRequestConfig = {
   name?: string;
+  baseUrl?: string;
+  baseUrlMap?: Record<string, string>;
+  baseUrlName?: string;
+  url?: number | string;
+  urlParts?: (number | string)[];
+  bearerToken?: string;
+  xml?: boolean;
   debug?: boolean;
   logger?: boolean;
-  bearerToken?: string;
   serializer?: {
     array?: 'indices' | 'brackets' | 'repeat' | 'comma';
   };
