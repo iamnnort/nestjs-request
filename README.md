@@ -63,10 +63,8 @@ bootstrap();
 ## Output
 
 ```bash
-[System] Application is starting...
-[System] Application started.
-[System] [Request] POST /echo {"greeting":"hello"}
-[System] [Response] POST /echo {"greeting":"hello"} 200 OK
+[JSON Placeholder] [Request] GET https://jsonplaceholder.typicode.com/todos/1
+[JSON Placeholder] [Response] GET https://jsonplaceholder.typicode.com/todos/1 200 OK {"userId":1,"id":1,"title":"delectus aut autem","completed":false}
 ```
 
 ## License
