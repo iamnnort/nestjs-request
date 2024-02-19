@@ -1,13 +1,15 @@
 import { HttpService } from '@nestjs/axios';
 import { xml2json } from 'xml2json-light';
-import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
+import { ForbiddenException, Inject, Injectable, Scope } from '@nestjs/common';
 import { catchError, lastValueFrom, map } from 'rxjs';
+import { LoggerService } from '@iamnnort/nestjs-logger';
 import { RequestBuilder } from './builder';
 import { MODULE_OPTIONS_TOKEN } from './module-definition';
-import { LoggerService } from '@iamnnort/nestjs-logger';
-import { BaseRequestConfig, HttpMethods, RequestConfig, RequestConfigParams } from './types';
+import { type BaseRequestConfig, HttpMethods, RequestConfig, RequestConfigParams } from './types';
 
-@Injectable()
+@Injectable({
+  scope: Scope.REQUEST,
+})
 export class RequestService<
   Entity extends Record<string, any> = any,
   SearchParams extends RequestConfigParams = any,

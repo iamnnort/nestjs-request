@@ -1,6 +1,6 @@
 {
   "name": "@iamnnort/nestjs-request",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Request module for NestJS - Simple - Fast - Informative",
   "keywords": [
     "request"
@@ -12,7 +12,7 @@
     "dist"
   ],
   "scripts": {
-    "start": "ts-node ./example demo",
+    "start": "ts-node ./example",
     "build": "tsup",
     "format": "prettier --write \"src/**/*.{ts,json}\"",
     "lint": "eslint --fix \"src/**/*.{ts,json}\"",
@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/iamnnort/nestjs-request#readme",
   "dependencies": {
-    "@iamnnort/nestjs-logger": "^1.1.9",
+    "@iamnnort/nestjs-logger": "^1.1.11",
     "@nestjs/axios": "^3.0.2",
     "@nestjs/common": "^10.3.3",
     "axios": "^1.6.7",
@@ -41,6 +41,7 @@
   "devDependencies": {
     "@nestjs/core": "^10.3.3",
     "@nestjs/platform-express": "^10.3.3",
+    "@swc/core": "^1.4.2",
     "@tsconfig/node16": "^16.1.1",
     "@types/jest": "^29.5.6",
     "@typescript-eslint/eslint-plugin": "^6.11.0",
