@@ -10,7 +10,7 @@ export type RequestConfig = Omit<AxiosRequestConfig, 'baseURL' | 'url'> & {
   multipart?: boolean;
 };
 
-export type BaseRequestConfig = {
+export type BaseRequestConfig = Pick<AxiosRequestConfig, 'auth'> & {
   name?: string;
   baseUrl?: string;
   baseUrlMap?: Record<string, string>;
