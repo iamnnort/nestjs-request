@@ -11,61 +11,65 @@ yarn install @iamnnort/nestjs-request
 ## Usage
 
 ```javascript
-// command.ts
-import { Command, CommandRunner } from 'nest-commander';
-import { HttpMethods, RequestService } from '@iamnnort/nestjs-request';
+// app.controller.ts
+import { Controller, Get } from '@nestjs/common';
+import { RequestService } from '@iamnnort/nestjs-request';
 
-@Command({ name: 'demo' })
-export class DemoCommand extends CommandRunner {
-  constructor(private requestService: RequestService<{ id: number }>) {
-    super();
-  }
+@Controller('demo')
+export class AppController {
+  constructor(private requestService: RequestService<{ id: number }>) {}
 
-  async run() {
-    const todo = await this.requestService.get(1);
-
-    console.log('Result:', todo);
+  @Get()
+  demo() {
+    return this.requestService.get(1);
   }
 }
 
 // app.ts
 import { Module } from '@nestjs/common';
-import { LoggerModule } from '@iamnnort/nestjs-logger';
 import { RequestModule } from '@iamnnort/nestjs-request';
-import { DemoCommand } from './command';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
-    LoggerModule,
-    RequestModule.forFeature({
+    RequestModule.register({
       name: 'Demo Api',
       baseUrl: 'https://jsonplaceholder.typicode.com',
       url: '/todos',
       logger: true,
     }),
   ],
-  providers: [DemoCommand],
+  controllers: [AppController],
 })
 export class AppModule {}
 
 // index.ts
-import { CommandFactory } from 'nest-commander';
+import { NestFactory } from '@nestjs/core';
+import { LoggerService } from '@iamnnort/nestjs-logger';
 import { AppModule } from './app';
 
 async function bootstrap() {
-  await CommandFactory.run(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  });
+
+  app.useLogger(new LoggerService());
+
+  await app.listen(3000);
 }
 
 bootstrap();
-
 ```
 
 ## Output
 
 ```bash
+[System] Application is starting...
+[System] Application started.
+[System] [Request] GET /demo
 [Demo Api] [Request] GET /todos/1
 [Demo Api] [Response] GET /todos/1 200 OK {"userId":1,"id":1,"title":"delectus aut autem","completed":false}
-Result: { userId: 1, id: 1, title: 'delectus aut autem', completed: false }
+[System] [Response] GET /demo 200 OK
 ```
 
 ## License
