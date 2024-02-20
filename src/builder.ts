@@ -59,6 +59,15 @@ export class RequestBuilder {
   }
 
   makeAuth() {
+    if (this.baseConfig.auth) {
+      this.config = {
+        ...this.config,
+        auth: this.baseConfig.auth,
+      };
+
+      return this;
+    }
+
     if (this.baseConfig.bearerToken) {
       this.config = {
         ...this.config,
