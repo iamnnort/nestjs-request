@@ -10,6 +10,7 @@ export type RequestConfig = Omit<AxiosRequestConfig, 'baseURL' | 'url'> & {
   bearerToken?: string;
   urlencoded?: boolean;
   multipart?: boolean;
+  xml?: boolean;
 };
 
 export type BaseRequestConfig = Pick<AxiosRequestConfig, 'auth' | 'headers'> & {
@@ -19,7 +20,6 @@ export type BaseRequestConfig = Pick<AxiosRequestConfig, 'auth' | 'headers'> & {
   url?: number | string;
   urlParts?: (number | string)[];
   bearerToken?: string;
-  xml?: boolean;
   debug?: boolean;
   logger?: boolean;
   serializer?: {

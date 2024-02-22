@@ -55,7 +55,7 @@ export class RequestService<
               this.loggerService.logResponse(response as any);
             }
 
-            if (this.config.xml) {
+            if (config.xml) {
               return xml2json(response.data) as T;
             }
 

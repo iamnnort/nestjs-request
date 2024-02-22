@@ -45,7 +45,7 @@ export class RequestBuilder {
       return this;
     }
 
-    if (this.baseConfig.xml) {
+    if (this.requestConfig.xml) {
       this.config = {
         ...this.config,
         headers: {
