@@ -14,6 +14,8 @@ export class RequestBuilder {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        ...params.baseConfig.headers,
+        ...params.requestConfig.headers,
       },
     };
   }
