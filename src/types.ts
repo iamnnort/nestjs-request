@@ -4,8 +4,10 @@ export type RequestConfigParams = Pick<AxiosRequestConfig, 'params' | 'data'>;
 
 export type RequestConfig = Omit<AxiosRequestConfig, 'baseURL' | 'url'> & {
   baseUrl?: string;
+  baseUrlName?: string;
   url?: number | string;
   urlParts?: (number | string)[];
+  bearerToken?: string;
   urlencoded?: boolean;
   multipart?: boolean;
 };
@@ -14,7 +16,6 @@ export type BaseRequestConfig = Pick<AxiosRequestConfig, 'auth' | 'headers'> & {
   name?: string;
   baseUrl?: string;
   baseUrlMap?: Record<string, string>;
-  baseUrlName?: string;
   url?: number | string;
   urlParts?: (number | string)[];
   bearerToken?: string;

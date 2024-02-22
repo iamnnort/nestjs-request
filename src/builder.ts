@@ -70,12 +70,14 @@ export class RequestBuilder {
       return this;
     }
 
-    if (this.baseConfig.bearerToken) {
+    const bearerToken = this.baseConfig.bearerToken || this.requestConfig.bearerToken;
+
+    if (bearerToken) {
       this.config = {
         ...this.config,
         headers: {
           ...this.config.headers,
-          Authorization: `Bearer ${this.baseConfig.bearerToken}`,
+          Authorization: `Bearer ${bearerToken}`,
         },
       };
 
@@ -87,7 +89,9 @@ export class RequestBuilder {
 
   makeUrl() {
     const urlParts = [
-      this.baseConfig.baseUrl,
+      this.baseConfig.baseUrlMap && this.requestConfig.baseUrlName
+        ? this.baseConfig.baseUrlMap[this.requestConfig.baseUrlName]
+        : this.baseConfig.baseUrl,
       this.baseConfig.url,
       ...(this.baseConfig.urlParts || []),
       this.requestConfig.baseUrl,
