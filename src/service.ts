@@ -136,4 +136,39 @@ export class RequestService<
       url: id,
     });
   }
+
+  parseId(url: string) {
+    if (!url) {
+      return '';
+    }
+
+    return url.substring(url.lastIndexOf('/') + 1);
+  }
+
+  makeData(data: object, options: { isStringOnly: boolean; isSorted: boolean }) {
+    const dataKeys = options.isSorted ? Object.keys(data).sort() : Object.keys(data);
+
+    const updatedObj = dataKeys.reduce((accData, dataKey) => {
+      if (typeof data[dataKey] === 'object' && data[dataKey] !== null) {
+        return {
+          ...accData,
+          [dataKey]: this.makeData(data[dataKey], options),
+        };
+      }
+
+      if (options.isStringOnly) {
+        return {
+          ...accData,
+          [dataKey]: data[dataKey].toString(),
+        };
+      }
+
+      return {
+        ...accData,
+        [dataKey]: data[dataKey],
+      };
+    }, {});
+
+    return Array.isArray(data) ? Object.values(updatedObj) : updatedObj;
+  }
 }
