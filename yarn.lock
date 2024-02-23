@@ -484,10 +484,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-2.0.1.tgz#e5211452df060fa8522b55c7b3c0c4d1981cb044"
   integrity sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==
 
-"@iamnnort/nestjs-logger@^1.1.11":
-  version "1.1.11"
-  resolved "https://registry.yarnpkg.com/@iamnnort/nestjs-logger/-/nestjs-logger-1.1.11.tgz#732eb7545e3ba29fbfbf021a8865677a615153cd"
-  integrity sha512-NfvHTaWdzsKifx+Y/T9vMYfO1P0UF7Z70LyYeODOoj01tsdDZtxJHyK5fpzU4iU1pWNkYgaq7XLghbyAFmPERA==
+"@iamnnort/nestjs-logger@^1.1.12":
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/@iamnnort/nestjs-logger/-/nestjs-logger-1.1.12.tgz#8a7e5cdefd5039f26a1f9b9cd06fd04b48ba1dea"
+  integrity sha512-rG0kSZSSInnBLRfkHnns3EdICvtxk50XC82UiKpcMJQLcDiVGF5Gu+2npL8xLjhhPUg3Enyw9J84teB+HoiwLQ==
   dependencies:
     "@nestjs/common" "^10.3.3"
     axios "^1.6.7"
