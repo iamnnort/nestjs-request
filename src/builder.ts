@@ -111,12 +111,10 @@ export class RequestBuilder {
         return urlPart?.replace(/(^(https?:\/\/|\/))/, '');
       });
 
-    const baseUrl = `${protocol}://${actualUrlParts[0]}`;
-    const url = `/${actualUrlParts.slice(1).join('/')}`;
+    const url = `${protocol}://${actualUrlParts.join('/')}`;
 
     this.config = {
       ...this.config,
-      baseURL: baseUrl,
       url,
     };
 
