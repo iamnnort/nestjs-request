@@ -61,16 +61,18 @@ export class RequestBuilder {
   }
 
   makeAuth() {
-    if (this.baseConfig.auth) {
+    const auth = this.requestConfig.auth || this.baseConfig.auth;
+
+    if (auth) {
       this.config = {
         ...this.config,
-        auth: this.baseConfig.auth,
+        auth,
       };
 
       return this;
     }
 
-    const bearerToken = this.baseConfig.bearerToken || this.requestConfig.bearerToken;
+    const bearerToken = this.requestConfig.bearerToken || this.baseConfig.bearerToken;
 
     if (bearerToken) {
       this.config = {
