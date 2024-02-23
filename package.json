@@ -1,6 +1,6 @@
 {
   "name": "@iamnnort/nestjs-request",
-  "version": "1.1.15",
+  "version": "1.1.16",
   "description": "Request module for NestJS - Simple - Fast - Informative",
   "keywords": [
     "request"
@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/iamnnort/nestjs-request#readme",
   "dependencies": {
-    "@iamnnort/nestjs-logger": "^1.1.12",
+    "@iamnnort/nestjs-logger": "^1.1.13",
     "@nestjs/axios": "^3.0.2",
     "@nestjs/common": "^10.3.3",
     "axios": "^1.6.7",
