@@ -90,10 +90,11 @@ export class RequestBuilder {
   }
 
   makeUrl() {
+    const baseUrlMap = this.requestConfig.baseUrlMap || this.baseConfig.baseUrlMap;
+    const baseUrlName = this.requestConfig.baseUrlName || this.baseConfig.baseUrlName;
+
     const urlParts = [
-      this.baseConfig.baseUrlMap && this.requestConfig.baseUrlName
-        ? this.baseConfig.baseUrlMap[this.requestConfig.baseUrlName]
-        : this.baseConfig.baseUrl,
+      baseUrlMap && baseUrlName ? baseUrlMap[baseUrlName] : this.baseConfig.baseUrl,
       this.baseConfig.url,
       ...(this.baseConfig.urlParts || []),
       this.requestConfig.baseUrl,
