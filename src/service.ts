@@ -5,7 +5,14 @@ import { catchError, lastValueFrom, map } from 'rxjs';
 import { LoggerService } from '@iamnnort/nestjs-logger';
 import { RequestBuilder } from './builder';
 import { MODULE_OPTIONS_TOKEN } from './module-definition';
-import { type BaseRequestConfig, HttpMethods, RequestConfig, RequestConfigParams } from './types';
+import {
+  type BaseRequestConfig,
+  HttpMethods,
+  Pagination,
+  PaginationResponse,
+  RequestConfig,
+  RequestConfigParams,
+} from './types';
 
 @Injectable({
   scope: Scope.TRANSIENT,
@@ -83,6 +90,37 @@ export class RequestService<
       ...config,
       method: HttpMethods.GET,
     });
+  }
+
+  async *bulkSearch(config: SearchParams = {} as SearchParams): AsyncGenerator<Entity[]> {
+    let pagination: Pagination = {
+      total: 0,
+      currentPage: config.params?.page || 0,
+      lastPage: 0,
+      from: 0,
+      to: 0,
+      pageSize: config.params?.pageSize || 30,
+    };
+
+    do {
+      const response = await this.common<PaginationResponse<Entity>>({
+        ...config,
+        method: HttpMethods.GET,
+        params: {
+          ...config.params,
+          page: pagination.currentPage + 1,
+          pageSize: pagination.pageSize,
+        },
+      });
+
+      if (!response.data?.length) {
+        return [];
+      }
+
+      yield response.data;
+
+      pagination = response.pagination;
+    } while (pagination.currentPage !== pagination.lastPage);
   }
 
   get(id: number | string, config: SearchParams = {} as SearchParams) {
