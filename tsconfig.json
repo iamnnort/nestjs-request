@@ -1,5 +1,5 @@
 {
-  "extends": "@tsconfig/node16/tsconfig.json",
+  "extends": "@tsconfig/node18/tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
@@ -9,7 +9,6 @@
     "declaration": false,
     "preserveSymlinks": false,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "noImplicitAny": false
+    "emitDecoratorMetadata": true
   }
 }
