@@ -9,6 +9,7 @@
     "declaration": false,
     "preserveSymlinks": false,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": false
   }
 }

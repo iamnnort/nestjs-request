@@ -1,6 +1,6 @@
 {
   "name": "@iamnnort/nestjs-request",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Request module for NestJS - Simple - Fast - Informative",
   "keywords": [
     "request"
@@ -26,7 +26,7 @@
     "type": "git",
     "url": "git+https://github.com/iamnnort/nestjs-request.git"
   },
-  "author": "Nort Red",
+  "author": "Nikita Pavets",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/iamnnort/nestjs-request/issues"
