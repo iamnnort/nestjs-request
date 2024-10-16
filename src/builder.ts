@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 import { BaseRequestConfig, HttpMethods, RequestConfig } from './types';
 import { stringify } from 'qs';
+import { pick } from 'lodash';
 
 export class RequestBuilder {
   baseConfig: BaseRequestConfig;
@@ -11,11 +12,13 @@ export class RequestBuilder {
     this.baseConfig = params.baseConfig;
     this.requestConfig = params.requestConfig;
     this.config = {
+      ...pick(this.baseConfig, ['timeout', 'responseType']),
+      ...pick(this.requestConfig, ['timeout', 'responseType']),
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        ...params.baseConfig.headers,
-        ...params.requestConfig.headers,
+        ...this.baseConfig.headers,
+        ...this.requestConfig.headers,
       },
     };
   }

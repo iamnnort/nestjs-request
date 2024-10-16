@@ -1,6 +1,6 @@
 {
   "name": "@iamnnort/nestjs-request",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Request module for NestJS - Simple - Fast - Informative",
   "keywords": [
     "request"
@@ -37,6 +37,7 @@
     "@nestjs/axios": "^3.0.3",
     "@nestjs/common": "^10.4.4",
     "axios": "^1.7.7",
+    "lodash": "^4.17.21",
     "qs": "^6.13.0",
     "xml2json-light": "^1.0.6"
   },
@@ -46,6 +47,7 @@
     "@swc/core": "^1.7.35",
     "@tsconfig/node18": "^18.2.4",
     "@types/express": "^5.0.0",
+    "@types/lodash": "^4.17.10",
     "@typescript-eslint/parser": "^8.8.1",
     "eslint": "^9.12.0",
     "eslint-config-prettier": "^9.1.0",
