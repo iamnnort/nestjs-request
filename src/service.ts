@@ -53,6 +53,10 @@ export class RequestService<
       this.loggerService.logRequest(request as any);
     }
 
+    if (this.config.debug) {
+      console.log('Config: ', JSON.stringify(request));
+    }
+
     return lastValueFrom(
       this.httpService
         .request<T>(request)
@@ -72,7 +76,7 @@ export class RequestService<
         .pipe(
           catchError((error) => {
             if (this.config.debug) {
-              console.log('Error:', error);
+              console.error('Error: ', error);
             }
 
             if (this.config.logger) {
