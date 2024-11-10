@@ -31,6 +31,11 @@ export type BaseRequestConfig = Pick<AxiosRequestConfig, 'auth' | 'headers' | 't
   };
 };
 
+export type ResponseConfig = {
+  raw?: boolean;
+  bulkCallback?: (page: number) => Promise<void>;
+};
+
 export enum HttpMethods {
   GET = 'get',
   POST = 'post',
@@ -51,9 +56,11 @@ export enum HttpStatuses {
   INTERNAL_SERVER_ERROR = 500,
 }
 
-export type PaginationParams = {
-  page?: number;
-  pageSize?: number;
+export type PaginationDto = {
+  pagination?: boolean | null;
+  page?: number | null;
+  pageSize?: number | null;
+  bulkSize?: number | null;
 };
 
 export type Pagination = {

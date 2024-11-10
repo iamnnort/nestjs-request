@@ -8,10 +8,10 @@ import { MODULE_OPTIONS_TOKEN } from './module-definition';
 import {
   type BaseRequestConfig,
   HttpMethods,
-  Pagination,
   PaginationResponse,
   RequestConfig,
   RequestConfigParams,
+  ResponseConfig,
 } from './types';
 
 @Injectable({
@@ -89,34 +89,52 @@ export class RequestService<
     );
   }
 
-  async *bulkCommon<T>(requestConfig: RequestConfig): AsyncGenerator<T[]> {
-    let pagination: Pagination = {
+  async *bulkCommon<T>(requestConfig: RequestConfig, responseConfig: ResponseConfig = {}): AsyncGenerator<T[]> {
+    const { params } = requestConfig;
+    const { bulkCallback } = responseConfig;
+    const { page, pageSize, bulkSize, ...searchDto } = params || {};
+
+    const maxPage = bulkSize ? page - 1 + bulkSize : null;
+
+    const paginationDto = {
+      page: page || 1,
+      pageSize: pageSize || 30,
+    };
+
+    let pagination = {
       total: 0,
-      currentPage: requestConfig.params?.page || 0,
+      currentPage: 0,
       lastPage: 0,
       from: 0,
       to: 0,
-      pageSize: requestConfig.params?.pageSize || 30,
+      pageSize: 0,
     };
 
     do {
       const response = await this.common<PaginationResponse<T>>({
         ...requestConfig,
         params: {
-          ...(requestConfig.params || {}),
-          page: pagination.currentPage + 1,
-          pageSize: pagination.pageSize,
+          ...paginationDto,
+          ...searchDto,
         },
       });
 
+      pagination = response.pagination;
+
       if (!response.data?.length) {
-        return [];
+        return;
       }
 
       yield response.data;
 
-      pagination = response.pagination;
-    } while (pagination.currentPage !== pagination.lastPage);
+      paginationDto.page += 1;
+    } while (pagination.currentPage !== pagination.lastPage && pagination.currentPage !== maxPage);
+
+    if (pagination.currentPage !== pagination.lastPage) {
+      if (bulkCallback) {
+        await bulkCallback(paginationDto.page);
+      }
+    }
   }
 
   search(config: SearchParams = {} as SearchParams) {
