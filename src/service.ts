@@ -94,12 +94,12 @@ export class RequestService<
     const { bulkCallback } = responseConfig;
     const { page, pageSize, bulkSize, ...searchDto } = params || {};
 
-    const maxPage = bulkSize ? page - 1 + bulkSize : null;
-
     const paginationDto = {
       page: page || 1,
       pageSize: pageSize || 30,
     };
+
+    const maxPage = bulkSize ? paginationDto.page - 1 + bulkSize : null;
 
     let pagination = {
       total: 0,
