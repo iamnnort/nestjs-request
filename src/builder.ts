@@ -183,7 +183,7 @@ export class RequestBuilder {
       ...this.config,
       paramsSerializer: (params: any) => {
         return stringify(params, {
-          arrayFormat: this.baseConfig.serializer?.array,
+          arrayFormat: this.baseConfig.serializer?.array || 'brackets',
         });
       },
     };
