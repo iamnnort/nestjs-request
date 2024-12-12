@@ -30,7 +30,9 @@ export class RequestService<
     private httpService: HttpService,
     private loggerService: LoggerService,
   ) {
-    this.loggerService.setContext(config.name);
+    if (config.name) {
+      this.loggerService.setContext(config.name);
+    }
   }
 
   common<T>(config: RequestConfig) {
