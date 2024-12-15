@@ -24,15 +24,17 @@ export class RequestService<
   CreateParams extends RequestConfigParams = any,
   UpdateParams extends RequestConfigParams = any,
 > {
+  private loggerService: LoggerService;
+
   constructor(
     @Inject(MODULE_OPTIONS_TOKEN)
     public config: BaseRequestConfig,
     private httpService: HttpService,
-    private loggerService: LoggerService,
   ) {
-    if (config.name) {
-      this.loggerService.setContext(config.name);
-    }
+    this.loggerService = new LoggerService({
+      context: config.name,
+      serializer: config.serializer,
+    });
   }
 
   common<T>(config: RequestConfig) {
@@ -56,7 +58,7 @@ export class RequestService<
     }
 
     if (this.config.debug) {
-      console.log('Config: ', JSON.stringify(request));
+      console.log('Config:', JSON.stringify(request));
     }
 
     return lastValueFrom(
