@@ -5,7 +5,7 @@ Request module for NestJS - Simple - Informative - Pretty
 ## Installation
 
 ```bash
-yarn install @iamnnort/nestjs-request
+yarn add @iamnnort/nestjs-request
 ```
 
 ## Usage
