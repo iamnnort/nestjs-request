@@ -3,13 +3,10 @@ import { RequestService } from '../src';
 
 @Controller('demo')
 export class AppController {
-  constructor(private requestService: RequestService) {}
+  constructor(private requestService: RequestService<{ id: number }>) {}
 
   @Get()
   demo() {
-    return this.requestService.common<User>({
-      url: '/auth/validate',
-      bearerToken: '*****',
-    });
+    return this.requestService.get(1);
   }
 }
