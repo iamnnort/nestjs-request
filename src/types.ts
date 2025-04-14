@@ -26,8 +26,9 @@ export type BaseRequestConfig = Pick<AxiosRequestConfig, 'auth' | 'headers' | 't
   apiKey?: string;
   debug?: boolean;
   logger?: boolean;
+  logResponse?: boolean;
   serializer?: {
-    array?: 'indices' | 'brackets' | 'repeat' | 'comma';
+    array: 'indices' | 'brackets' | 'repeat' | 'comma';
   };
 };
 

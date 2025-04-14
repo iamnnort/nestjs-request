@@ -33,6 +33,7 @@ export class RequestService<
   ) {
     this.loggerService = new LoggerService({
       context: config.name,
+      logResponse: config.logResponse,
       serializer: config.serializer,
     });
   }
