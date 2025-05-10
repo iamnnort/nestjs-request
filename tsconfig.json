@@ -2,12 +2,14 @@
   "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
     "baseUrl": "./",
-    "paths": { "@src/*": ["src/*"] },
+    "strictPropertyInitialization": false,
+    "noFallthroughCasesInSwitch": false,
     "resolveJsonModule": true,
-    "declaration": false,
-    "preserveSymlinks": false,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "noImplicitAny": false
+    "noImplicitAny": false,
+    "paths": {
+      "@src/*": ["src/*"]
+    }
   }
 }
