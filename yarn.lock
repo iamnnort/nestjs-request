@@ -240,12 +240,11 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/retry/-/retry-0.4.2.tgz#1860473de7dfa1546767448f333db80cb0ff2161"
   integrity sha512-xeO57FpIu4p1Ri3Jq/EXq4ClRm86dVF2z/+kvFnyqVYRavTZmaFaUBbWCOuuTh0o/g7DSsk6kc2vrS4Vl5oPOQ==
 
-"@iamnnort/nestjs-logger@^1.5.2":
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/@iamnnort/nestjs-logger/-/nestjs-logger-1.5.2.tgz#129b7be82830b71c8b9972e5eac42e887ec603e4"
-  integrity sha512-cUPAvfneyBfDQBboO26TDSAv0akYmaWhY2NSbAIUlWYLZfAQtsNjGZ7u7psrvalUDuhZoFdclnMeoo3dAHrYZw==
+"@iamnnort/nestjs-logger@^1.5.3":
+  version "1.5.3"
+  resolved "https://registry.yarnpkg.com/@iamnnort/nestjs-logger/-/nestjs-logger-1.5.3.tgz#1353fd6863bc09bbf011132065c33199ac12c611"
+  integrity sha512-Q+ee/zp48MwfJHryS62EEJAVTCVs6+v1+QDtaUW/CLLBIFapjxPhogSPBOzcqLN4MsUi+K1VaOc7rd6nvqf4ag==
   dependencies:
-    "@nestjs/common" "^11.1.0"
     axios "^1.9.0"
     lodash "^4.17.21"
     qs "^6.14.0"
