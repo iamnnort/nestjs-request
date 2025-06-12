@@ -1,11 +1,10 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
-import { LoggerModule } from '@iamnnort/nestjs-logger';
 import { ConfigurableModuleClass } from './module-definition';
 import { RequestService } from './service';
 
 @Module({
-  imports: [HttpModule, LoggerModule],
+  imports: [HttpModule],
   providers: [RequestService],
   exports: [RequestService],
 })

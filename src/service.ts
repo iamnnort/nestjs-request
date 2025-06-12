@@ -59,7 +59,7 @@ export class RequestService<
     }
 
     if (this.config.debug) {
-      console.log('Config:', JSON.stringify(request));
+      console.log('Request Config:', JSON.stringify(request));
     }
 
     return lastValueFrom(

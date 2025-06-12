@@ -45,17 +45,12 @@ export class AppModule {}
 
 // index.ts
 import { NestFactory } from '@nestjs/core';
-import { LoggerService } from '@iamnnort/nestjs-logger';
 import { AppModule } from './app';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
   });
-
-  const loggerService = await app.resolve(LoggerService);
-
-  app.useLogger(loggerService);
 
   await app.listen(3000);
 }
@@ -66,12 +61,8 @@ bootstrap();
 ## Output
 
 ```bash
-[System] Application is starting...
-[System] Application started.
-[System] [Request] GET /demo
 [Demo Api] [Request] GET /todos/1
 [Demo Api] [Response] GET /todos/1 200 OK {"userId":1,"id":1,"title":"delectus aut autem","completed":false}
-[System] [Response] GET /demo 200 OK
 ```
 
 ## License
