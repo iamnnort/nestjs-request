@@ -240,15 +240,6 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/retry/-/retry-0.4.2.tgz#1860473de7dfa1546767448f333db80cb0ff2161"
   integrity sha512-xeO57FpIu4p1Ri3Jq/EXq4ClRm86dVF2z/+kvFnyqVYRavTZmaFaUBbWCOuuTh0o/g7DSsk6kc2vrS4Vl5oPOQ==
 
-"@iamnnort/nestjs-logger@^1.5.5":
-  version "1.5.5"
-  resolved "https://registry.yarnpkg.com/@iamnnort/nestjs-logger/-/nestjs-logger-1.5.5.tgz#f6d5922d4af8f2e36192129a5a0f6e2cae82e93f"
-  integrity sha512-Kb+B+hmzvxQtwyTlu743x/8SBEgLcxxtIBGqki5T9xYPv6WM7trU0KtXCHS9Ff1rr4aEkkeuZW+oDqEoCAZpNw==
-  dependencies:
-    axios "^1.9.0"
-    lodash "^4.17.21"
-    qs "^6.14.0"
-
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
   resolved "https://registry.yarnpkg.com/@isaacs/cliui/-/cliui-8.0.2.tgz#b37667b7bc181c168782259bab42474fbf52b550"

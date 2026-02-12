@@ -2,7 +2,6 @@ import { HttpService } from '@nestjs/axios';
 import { xml2json } from 'xml2json-light';
 import { ForbiddenException, Inject, Injectable, Scope } from '@nestjs/common';
 import { catchError, lastValueFrom, map } from 'rxjs';
-import { LoggerService } from '@iamnnort/nestjs-logger';
 import { RequestBuilder } from './builder';
 import { MODULE_OPTIONS_TOKEN } from './module-definition';
 import {
@@ -24,19 +23,11 @@ export class RequestService<
   CreateParams extends RequestConfigParams = any,
   UpdateParams extends RequestConfigParams = any,
 > {
-  private loggerService: LoggerService;
-
   constructor(
     @Inject(MODULE_OPTIONS_TOKEN)
     public config: BaseRequestConfig,
     private httpService: HttpService,
-  ) {
-    this.loggerService = new LoggerService({
-      context: config.name,
-      logResponse: config.logResponse,
-      serializer: config.serializer,
-    });
-  }
+  ) {}
 
   common<T>(config: RequestConfig) {
     const requestBuilder = new RequestBuilder({
@@ -54,10 +45,6 @@ export class RequestService<
       .makeSerializer()
       .build();
 
-    if (this.config.logger) {
-      this.loggerService.logRequest(request as any);
-    }
-
     if (this.config.debug) {
       console.log('Request Config:', JSON.stringify(request));
     }
@@ -67,10 +54,6 @@ export class RequestService<
         .request<T>(request)
         .pipe(
           map((response) => {
-            if (this.config.logger) {
-              this.loggerService.logResponse(response as any);
-            }
-
             if (config.xml) {
               return xml2json(response.data) as T;
             }
@@ -82,10 +65,6 @@ export class RequestService<
           catchError((error) => {
             if (this.config.debug) {
               console.error('Error: ', error);
-            }
-
-            if (this.config.logger) {
-              this.loggerService.logRequestError(error);
             }
 
             throw new ForbiddenException(`${this.config.name} is not available`);
